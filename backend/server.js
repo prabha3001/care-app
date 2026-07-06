@@ -7,6 +7,7 @@ const { initDb } = require('./db');
 const authRoutes = require('./routes/auth');
 const visitsRoutes = require('./routes/visits');
 const feedbackRoutes = require('./routes/feedback');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api', authRoutes);
 app.use('/api/visits', visitsRoutes);
 app.use('/api/feedback', feedbackRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 

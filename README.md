@@ -31,7 +31,8 @@ node reset-visit.js       # resets visit id 1 (pass a different id as an argumen
 
 Then open `http://localhost:3000` in a browser.
 
-Test login: `carer@test.com` / `password123`
+Test carer login: `carer@test.com` / `password123`
+Test admin login: `admin@test.com` / `admin123` (open `/admin.html`)
 
 ## What's implemented (Phase 1)
 
@@ -39,6 +40,8 @@ Test login: `carer@test.com` / `password123`
 - Today's visits list per carer
 - Clock-in / clock-out with GPS capture
 - Public feedback page (star rating + comment), linked per visit, no login required
+- Admin login (`/admin.html`) — separate role, can add carers, add clients, and
+  schedule visits (the rota)
 
 ## Deployment (Render)
 

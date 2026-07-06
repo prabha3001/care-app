@@ -2,24 +2,26 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const { pool, initDb } = require('./db');
 
-const TEST_EMAIL = 'carer@test.com';
-const TEST_PASSWORD = 'password123';
+const TEST_CARER_EMAIL = 'carer@test.com';
+const TEST_CARER_PASSWORD = 'password123';
+const TEST_ADMIN_EMAIL = 'admin@test.com';
+const TEST_ADMIN_PASSWORD = 'admin123';
 
 async function seed() {
   await initDb();
 
-  const existing = await pool.query('SELECT id FROM carers WHERE email = $1', [TEST_EMAIL]);
+  const existing = await pool.query('SELECT id FROM carers WHERE email = $1', [TEST_CARER_EMAIL]);
   if (existing.rows[0]) {
     console.log(`Seed data already exists (carer id ${existing.rows[0].id}). Skipping.`);
     await pool.end();
     return;
   }
 
-  const hash = await bcrypt.hash(TEST_PASSWORD, 10);
+  const carerHash = await bcrypt.hash(TEST_CARER_PASSWORD, 10);
 
   const carerResult = await pool.query(
     'INSERT INTO carers (name, email, password_hash) VALUES ($1, $2, $3) RETURNING id',
-    ['Test Carer', TEST_EMAIL, hash]
+    ['Test Carer', TEST_CARER_EMAIL, carerHash]
   );
   const carerId = carerResult.rows[0].id;
 
@@ -38,8 +40,15 @@ async function seed() {
     [carerId, clientId, scheduledStart, scheduledEnd]
   );
 
+  const adminHash = await bcrypt.hash(TEST_ADMIN_PASSWORD, 10);
+  await pool.query(
+    'INSERT INTO admins (name, email, password_hash) VALUES ($1, $2, $3) ON CONFLICT (email) DO NOTHING',
+    ['Test Admin', TEST_ADMIN_EMAIL, adminHash]
+  );
+
   console.log('Seed complete.');
-  console.log(`Login: ${TEST_EMAIL} / ${TEST_PASSWORD}`);
+  console.log(`Carer login: ${TEST_CARER_EMAIL} / ${TEST_CARER_PASSWORD}`);
+  console.log(`Admin login: ${TEST_ADMIN_EMAIL} / ${TEST_ADMIN_PASSWORD}`);
   console.log(`Visit id: ${visitResult.rows[0].id}`);
   await pool.end();
 }

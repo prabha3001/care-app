@@ -6,6 +6,11 @@ const pool = new Pool({
 });
 
 async function initDb() {
+  await pool.query(`CREATE TABLE IF NOT EXISTS admins (
+    id SERIAL PRIMARY KEY,
+    name TEXT, email TEXT UNIQUE, password_hash TEXT
+  )`);
+
   await pool.query(`CREATE TABLE IF NOT EXISTS carers (
     id SERIAL PRIMARY KEY,
     name TEXT, email TEXT UNIQUE, password_hash TEXT

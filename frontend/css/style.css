@@ -187,3 +187,46 @@ button:disabled {
   color: #666;
   padding: 40px 0;
 }
+
+.page-wide {
+  max-width: 900px;
+}
+
+select,
+input[type="datetime-local"] {
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 700px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px 6px;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  color: #555;
+  font-weight: 600;
+}
