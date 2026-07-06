@@ -22,6 +22,13 @@ node seed.js               # creates a test carer, client, and today's visit (ru
 node server.js
 ```
 
+To test the clock-in/clock-out flow again after a visit is already completed, reset it
+back to a fresh not-started state:
+
+```
+node reset-visit.js       # resets visit id 1 (pass a different id as an argument)
+```
+
 Then open `http://localhost:3000` in a browser.
 
 Test login: `carer@test.com` / `password123`
