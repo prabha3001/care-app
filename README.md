@@ -29,14 +29,17 @@ back to a fresh not-started state:
 node reset-visit.js       # resets visit id 1 (pass a different id as an argument)
 ```
 
-Then open `http://localhost:3000` in a browser.
+Then open `http://localhost:3000` in a browser — this is the home page, with links
+through to carer login and admin login.
 
 Test carer login: `carer@test.com` / `password123`
-Test admin login: `admin@test.com` / `admin123` (open `/admin.html`)
+Test admin login: `admin@test.com` / `admin123`
 
 ## What's implemented (Phase 1)
 
-- Carer login (JWT-based session, bcrypt-hashed passwords)
+- Home page (`/`) branded with the Simple Care 4 U logo and colours, linking to the
+  carer and admin logins
+- Carer login (`/carer-login.html`, JWT-based session, bcrypt-hashed passwords)
 - Today's visits list per carer
 - Clock-in / clock-out with GPS capture
 - Public feedback page (star rating + comment), linked per visit, no login required

@@ -2,13 +2,13 @@ const token = localStorage.getItem('token');
 const listEl = document.getElementById('visits-list');
 
 if (!token) {
-  window.location.href = 'index.html';
+  window.location.href = 'carer-login.html';
 }
 
 document.getElementById('logout-button').addEventListener('click', () => {
   localStorage.removeItem('token');
   localStorage.removeItem('carerName');
-  window.location.href = 'index.html';
+  window.location.href = 'carer-login.html';
 });
 
 function formatTime(isoString) {
@@ -45,7 +45,7 @@ async function loadVisits() {
 
   if (res.status === 401) {
     localStorage.removeItem('token');
-    window.location.href = 'index.html';
+    window.location.href = 'carer-login.html';
     return;
   }
 

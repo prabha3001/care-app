@@ -3,27 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Carer Login</title>
+  <title>Simple Care 4 U</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <div class="page">
-    <h1>Carer Login</h1>
-    <p class="subtitle">Sign in to see today's visits.</p>
+    <div class="hero">
+      <img src="assets/logo.png" alt="Simple Care 4 U" />
+      <h1>Simple Care 4 U</h1>
+      <p class="subtitle">Attendance &amp; feedback</p>
+    </div>
 
-    <form id="login-form">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" autocomplete="username" required />
+    <div class="nav-cards">
+      <a class="nav-card" href="carer-login.html">
+        <h2>Carer Login</h2>
+        <p>Sign in to see today's visits and clock in/out.</p>
+      </a>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" autocomplete="current-password" required />
-
-      <div class="error" id="login-error"></div>
-
-      <button type="submit" id="login-button">Log In</button>
-    </form>
+      <a class="nav-card" href="admin.html">
+        <h2>Admin</h2>
+        <p>Add carers and clients, and manage the rota.</p>
+      </a>
+    </div>
   </div>
-
-  <script src="js/login.js"></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carer Login</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="brand-header">
+      <a href="index.html">
+        <img src="assets/logo.png" alt="Simple Care 4 U" />
+      </a>
+    </div>
+
+    <h1>Carer Login</h1>
+    <p class="subtitle">Sign in to see today's visits.</p>
+
+    <form id="login-form">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="username" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required />
+
+      <div class="error" id="login-error"></div>
+
+      <button type="submit" id="login-button">Log In</button>
+    </form>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
