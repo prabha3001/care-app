@@ -1,33 +1,37 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+const { Pool } = require('pg');
 
-const db = new sqlite3.Database(path.join(__dirname, 'care.db'));
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
-db.serialize(() => {
-  db.run(`CREATE TABLE IF NOT EXISTS carers (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+async function initDb() {
+  await pool.query(`CREATE TABLE IF NOT EXISTS carers (
+    id SERIAL PRIMARY KEY,
     name TEXT, email TEXT UNIQUE, password_hash TEXT
   )`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS clients (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+  await pool.query(`CREATE TABLE IF NOT EXISTS clients (
+    id SERIAL PRIMARY KEY,
     name TEXT, address TEXT, phone TEXT
   )`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS visits (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    carer_id INTEGER, client_id INTEGER,
-    scheduled_start TEXT, scheduled_end TEXT,
-    actual_start TEXT, actual_end TEXT,
-    start_lat REAL, start_lng REAL,
-    end_lat REAL, end_lng REAL
+  await pool.query(`CREATE TABLE IF NOT EXISTS visits (
+    id SERIAL PRIMARY KEY,
+    carer_id INTEGER REFERENCES carers(id),
+    client_id INTEGER REFERENCES clients(id),
+    scheduled_start TIMESTAMPTZ, scheduled_end TIMESTAMPTZ,
+    actual_start TIMESTAMPTZ, actual_end TIMESTAMPTZ,
+    start_lat DOUBLE PRECISION, start_lng DOUBLE PRECISION,
+    end_lat DOUBLE PRECISION, end_lng DOUBLE PRECISION
   )`);
 
-  db.run(`CREATE TABLE IF NOT EXISTS feedback (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    visit_id INTEGER, rating INTEGER, comment TEXT,
-    submitted_at TEXT
+  await pool.query(`CREATE TABLE IF NOT EXISTS feedback (
+    id SERIAL PRIMARY KEY,
+    visit_id INTEGER REFERENCES visits(id),
+    rating INTEGER, comment TEXT,
+    submitted_at TIMESTAMPTZ
   )`);
-});
+}
 
-module.exports = db;
+module.exports = { pool, initDb };

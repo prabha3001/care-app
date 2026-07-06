@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
-require('./db');
+const { initDb } = require('./db');
 const authRoutes = require('./routes/auth');
 const visitsRoutes = require('./routes/visits');
 const feedbackRoutes = require('./routes/feedback');
@@ -20,6 +20,13 @@ app.use('/api/feedback', feedbackRoutes);
 
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+initDb()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running at http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to initialize database:', err.message);
+    process.exit(1);
+  });

@@ -1,0 +1,21 @@
+databases:
+  - name: care-app-db
+    plan: free
+
+services:
+  - type: web
+    name: care-app
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: care-app-db
+          property: connectionString
+      - key: NODE_ENV
+        value: production
