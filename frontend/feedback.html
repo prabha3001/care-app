@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visit Feedback</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <h1>How did the visit go?</h1>
+    <p class="subtitle" id="visit-info">Loading visit details...</p>
+
+    <form id="feedback-form">
+      <label>Rating</label>
+      <div class="stars" id="stars">
+        <button type="button" data-value="1">★</button>
+        <button type="button" data-value="2">★</button>
+        <button type="button" data-value="3">★</button>
+        <button type="button" data-value="4">★</button>
+        <button type="button" data-value="5">★</button>
+      </div>
+
+      <label for="comment">Comments (optional)</label>
+      <textarea id="comment" name="comment" placeholder="Tell us how it went..."></textarea>
+
+      <div class="error" id="feedback-error"></div>
+      <div class="success" id="feedback-success"></div>
+
+      <button type="submit" id="submit-button">Submit Feedback</button>
+    </form>
+  </div>
+
+  <script src="js/feedback.js"></script>
+</body>
+</html>
